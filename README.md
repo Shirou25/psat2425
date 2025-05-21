@@ -26,7 +26,13 @@ Aplikasi web berbasis PHP untuk Penilaian Praktek DevOps siswa kelas XI TJKT 1 d
 
 ### 3. Konfigurasi EC2
 Untuk Ubuntu:
-
+- pilih > Name = (Nama instance)
+        > Application and OS Images = ubuntu
+        > Instance type = t2micro atau t2nano
+        > Key pair (login) = vockey
+        > Firewall (security groups) = SSH, HTTP, HTTPS, anywhere 0.0.0.0/0
+        > Advanced detail > user data
+        > isi user data dengan
      sudo apt update -y
      sudo apt install -y apache2 php php-mysql libapache2-mod-php mysql-client
      sudo rm -rf /var/www/html/{*,.*}
@@ -40,16 +46,17 @@ Untuk Ubuntu:
 
 ### 4. Konfigurasi Database 
 
-- Buat file `.env` di direktori `/var/www/html` dengan isi seperti berikut (ganti dengan data RDS kamu):
+ - pilih > standar create
+        > engine options = MYsql
+        > Templates = Free Tier
+        > Availability and durability = Single-AZ
+        > DB cluster identifier = (nama db)
+        > Master username = (username)
+        > Master password = (password)
+        > Public acces = no
+        > Existing VPC security groups = (pilih SG dengan allow inbound  MySQL (3306) from anywhereIPv4 (0.0.0.0/0))
 
-  ```
-  DB_HOST= (endpoint rds)
-  DB_NAME= (nama db database)
-  DB_USER= (username)
-  DB_PASS=(password0
-  ```
 
-- Pastikan database database sudah dibuat di RDS dan tabel-tabelnya sesuai kebutuhan aplikasi.
 
 ### 6. Akses Aplikasi
 
