@@ -25,44 +25,20 @@ Aplikasi web berbasis PHP untuk Penilaian Praktek DevOps siswa kelas XI TJKT 1 d
 - Catat endpoint, nama database, username, dan password.
 
 ### 3. Konfigurasi EC2
+Untuk Ubuntu:
 
-  Untuk Amazon Linux 2:
-
-  ```bash
-  sudo yum update -y
-  sudo amazon-linux-extras enable php8.0
-  sudo yum install -y httpd php php-mysqlnd
-  sudo systemctl start httpd
-  sudo systemctl enable httpd
+     sudo apt update -y
+     sudo apt install -y apache2 php php-mysql libapache2-mod-php mysql-client
+     sudo rm -rf /var/www/html/{*,.*}
+     sudo git clone https://github.com/Shirou25/psat2425.git /var/www/html
+     sudo chmod -R 777 /var/www/html
+     echo DB_USER=(username) > /var/www/html/.env
+     echo DB_PASS=(password)  >> /var/www/html/.env
+     echo DB_NAME=(database)  >> /var/www/html/.env
+     echo DB_HOST=(endpoint rds) >> /var/www/html/.env
   
 
-  Untuk Ubuntu:
-
-  ```bash
-  sudo apt update
-  sudo apt install -y apache2 php php-mysql libapache2-mod-php
-  sudo systemctl start apache2
-  sudo systemctl enable apache2
-  
-
-### 4. Deploy Aplikasi
-
-- Clone repositori ke direktori web server:
-
-  ```bash
-  cd /var/www/html
-  sudo rm -rf *
-  sudo git clone https://github.com/Shirou25/psat2425.git .
-  ```
-
-- Berikan izin yang sesuai (jika diperlukan):
-
-  ```bash
-  sudo chown -R apache:apache /var/www/html   # untuk Amazon Linux
-  sudo chown -R www-data:www-data /var/www/html  # untuk Ubuntu
-  ```
-
-### 5. Konfigurasi Database
+### 4. Konfigurasi Database 
 
 - Buat file `.env` di direktori `/var/www/html` dengan isi seperti berikut (ganti dengan data RDS kamu):
 
